@@ -1,4 +1,9 @@
+            
 const dataId = localStorage.getItem("dataIdLogin");
+if (!dataId) {
+  // Chuyển trang khi giá trị 0 tồn tại
+  window.location.href = "login.html";
+}
 const urlAuthor = "https://backend-qu7a.onrender.com/v1/author/id/" + dataId;
 const urlTheme = "https://backend-qu7a.onrender.com/v1/theme/";
 console.log(urlAuthor);
@@ -7,11 +12,12 @@ fetch(urlAuthor)
   .then((response) => {
     const authorName = response.name;
     const authorImage = response.image;
-    const authorDesc = response.desc;
+    const authorDesc = response.desc == undefined ? "" : response.desc;
     const linkWeb = './testapipro.html?link=' + response.link;
     document.getElementById("authorName").innerText = authorName;
     document.getElementById("headerName").innerText = authorName;
     document.getElementById("authorDESC").innerText = authorDesc;
+    console.log(authorDesc == undefined ? "" : authorDesc);
     document.getElementById("authorImage").src = authorImage;
     document.getElementById("editName").value = authorName
     document.getElementById("editDESC").value = authorDesc

@@ -811,7 +811,22 @@
               </form>
             </div>
           </section>
+          <div style="position: fixed;
+          top: 0;
+          right: 0;
+          padding: 1rem;
+          z-index: 1000;
+          display: none;" class=" alert alert-danger alert-dismissible fade show" role="alert" id="successMessage">
+            Bạn chưa nhập liên kết muốn tạo
+          </div>
           <script>
+            function showSuccessMessage() {
+            const successMessage = document.getElementById('successMessage');
+            successMessage.style.display = 'block';
+            setTimeout(function() {
+                successMessage.style.display = 'none';
+            }, 3000); // 3 giây
+            }
             console.log(123);
             var retrievedObject = localStorage.getItem("dataIdLogin");
             if (retrievedObject) {
@@ -827,6 +842,7 @@
 
             import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
             import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-analytics.js";
+            
             const firebaseConfig = {
               apiKey: "AIzaSyDzaXX91YvCvORC3JbNKegTVKIqyMB17Ro",
               authDomain: "uhpnatshop.firebaseapp.com",
@@ -877,7 +893,7 @@
                           }
                         } else {
                           if (document.querySelector('#dataLink').value == "") {
-                            return console.log("link rỗng");
+                             return showSuccessMessage()
                           }
                           fetch(url,
                             {
